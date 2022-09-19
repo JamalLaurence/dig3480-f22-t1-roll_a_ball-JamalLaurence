@@ -20,9 +20,9 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
-
         SetCountText();
         winTextObject.SetActive(false);
+       
     }
 
     private void OnMove(InputValue movementValue)
@@ -36,11 +36,12 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
-        if(count >= 13)
+        if(count >= 12)
         {
             winTextObject.SetActive(true);
         }
     }
+    
 
     private void FixedUpdate()
     {
@@ -55,7 +56,12 @@ public class PlayerController : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             count = count + 1;
-
+            SetCountText();
+        }
+        if(other.gameObject.CompareTag("Enemy")) 
+        {
+            other.gameObject.SetActive(false);
+            count = count - 1;
             SetCountText();
         }
     }
